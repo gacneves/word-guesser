@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  View,
-} from 'react-native';
+import Navigators from './navigators';
 
 const App = () => {
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <Navigators />
   );
 };
 
