@@ -8,7 +8,8 @@ const globalStyles = StyleSheet.create({
     backgroundColor: theme.colors.background
   },
   text: {
-    fontFamily: 'PublicPixel-z84yD'
+    fontFamily: 'PublicPixel-z84yD',
+    color: 'theme.colors.text'
   }
 });
 

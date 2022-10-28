@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Animated, Easing } from 'react-native';
+import Button from '../../components/button';
 import globalStyles from '../../styles';
 import theme from '../../theme';
 
@@ -37,7 +38,15 @@ const Home = () => {
         <Text style={[globalStyles.text, styles.score]}>{highScore}</Text>
       </View>
       <View style={styles.section}>
-        <Text style={[globalStyles.text, styles.play]}>Start</Text>
+        <Button
+          title='Start'
+          color={theme.colors.secondary}
+          width={250}
+          height={75}
+          radius={10}
+          titleSize={38}
+          onPress={() => console.log('Start')}
+        />
       </View>
     </View >
   );
@@ -46,7 +55,8 @@ const Home = () => {
 const styles = StyleSheet.create({
   section: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: 48,
@@ -56,14 +66,8 @@ const styles = StyleSheet.create({
   },
   score: {
     fontSize: 28,
-    textAlign: 'center',
     paddingBottom: 30,
     color: theme.colors.text,
-  },
-  play: {
-    fontSize: 48,
-    textAlign: 'center',
-    color: theme.colors.secondary,
   }
 });
 
