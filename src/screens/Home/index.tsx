@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet, Animated, Easing } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/button';
 import globalStyles from '../../styles';
 import theme from '../../theme';
 
 const Home = () => {
+  const navigation = useNavigation();
+
   const highScore = 10 // Initial mock value for high score
 
   const animationState = new Animated.Value(0);
@@ -28,6 +31,10 @@ const Home = () => {
     ).start();
   }, []);
 
+  const handleStart = () => {
+    navigation.navigate('Game', {});
+  }
+
   return (
     <View style={globalStyles.container}>
       <View style={styles.section}>
@@ -45,7 +52,7 @@ const Home = () => {
           height={75}
           radius={10}
           titleSize={38}
-          onPress={() => console.log('Start')}
+          onPress={handleStart}
         />
       </View>
     </View >
