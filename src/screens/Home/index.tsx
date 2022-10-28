@@ -1,12 +1,17 @@
 import React from 'react';
 import { Text, View, StyleSheet, Animated, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../../navigators';
 import Button from '../../components/button';
 import globalStyles from '../../styles';
 import theme from '../../theme';
 
+// Getting the type of the game screen navigation prop
+type GameScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Game'>;
+
 const Home = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<GameScreenNavigationProp>();
 
   const highScore = 10 // Initial mock value for high score
 
@@ -32,7 +37,7 @@ const Home = () => {
   }, []);
 
   const handleStart = () => {
-    navigation.navigate('Game', {});
+    navigation.navigate('Game');
   }
 
   return (
