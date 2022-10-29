@@ -1,22 +1,24 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Button from '../../components/button';
+import WordGuess from '../../components/word-guess';
+import guesses from '../../utils/game-logic';
 import globalStyles from '../../styles';
 import theme from '../../theme';
 
 const Game = () => {
   const currentScore = 6 // Initial mock value for tries
 
-  const guesses = ['word', 'word', 'word', 'word', 'word', 'word'] // Initial mock value for guesses
-
   return (
     <View style={globalStyles.container}>
       <View style={styles.viewSection}>
         <Text style={[globalStyles.text, styles.header]}>Guess the word!</Text>
         <Text style={[globalStyles.text, styles.score]}>Score:{currentScore}</Text>
-        {guesses.map((guess, index) => (
-          <Text key={index} style={globalStyles.text}>{guess}</Text>
-        ))}
+        <View style={styles.guesses} >
+          {guesses.map((guess, index) =>
+            <WordGuess key={index} word={guess.word} active={guess.active} guessedLettersStatus={guess.guessedLettersStatus} />
+          )}
+        </View>
       </View>
       <View style={styles.inputSection}>
         <Button
@@ -51,6 +53,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 15,
     color: theme.colors.secondary
+  },
+  guesses: {
+    marginTop: 20,
   }
 });
 
