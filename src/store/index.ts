@@ -21,7 +21,7 @@ function game(state = INITIAL_STATE, action: any) {
   switch (action.type) {
     case 'ADD_LETTER':
       const currentGuess = state.guesses[state.currentGuessIndex];
-      currentGuess.word += action.letter;
+      currentGuess.word = currentGuess.word.length < 5 ? currentGuess.word + action.letter : currentGuess.word;
       return { ...state, guesses: state.guesses };
     case 'REMOVE_LETTER':
       const currentGuess2 = state.guesses[state.currentGuessIndex];
