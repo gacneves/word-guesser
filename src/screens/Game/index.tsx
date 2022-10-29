@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { gameState } from '../../store';
 import Button from '../../components/button';
+import Keyboard from '../../components/keyboard';
 import WordGuess from '../../components/word-guess';
 import globalStyles from '../../styles';
 import theme from '../../theme';
@@ -30,7 +31,9 @@ const Game = () => {
           titleSize={30}
           onPress={() => console.log('Guess')}
         />
-        <Text style={globalStyles.text}>Keyboard</Text>
+        <View style={styles.keyboard}>
+          <Keyboard />
+        </View>
       </View>
     </View>
   );
@@ -57,6 +60,9 @@ const styles = StyleSheet.create({
   },
   guesses: {
     marginTop: 10,
+  },
+  keyboard: {
+    marginTop: 20
   }
 });
 
