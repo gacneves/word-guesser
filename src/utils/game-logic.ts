@@ -6,13 +6,11 @@ export type Guess = {
   guessedLettersStatus?: Array<GuessedLetterStatus>
 }
 
-// Initial mock value for guesses
-const guesses: Array<Guess> = [
-  { word: 'HORSE', active: false, guessedLettersStatus: ['nonexistent', 'nonexistent', 'correct-position', 'correct-position', 'correct-position'] },
-  { word: 'MORSE', active: false, guessedLettersStatus: ['nonexistent', 'nonexistent', 'correct-position', 'correct-position', 'wrong-position'] },
-  { word: 'PARSE', active: false, guessedLettersStatus: ['correct-position', 'correct-position', 'correct-position', 'correct-position', 'correct-position'] },
-  { word: '', active: true },
-  { word: '', active: true },
-]
-
-export default guesses;
+export type GameInfo = {
+  secretWord: string,
+  guesses: [Guess, Guess, Guess, Guess, Guess, Guess],
+  currentGuessIndex: number,
+  score: number,
+  highscore: number,
+  gameOver: boolean
+}

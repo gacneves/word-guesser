@@ -1,21 +1,22 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { gameState } from '../../store';
 import Button from '../../components/button';
 import WordGuess from '../../components/word-guess';
-import guesses from '../../utils/game-logic';
 import globalStyles from '../../styles';
 import theme from '../../theme';
 
 const Game = () => {
-  const currentScore = 6 // Initial mock value for tries
+  const gameInfo = useSelector((state: gameState) => state);
 
   return (
     <View style={globalStyles.container}>
       <View style={styles.viewSection}>
         <Text style={[globalStyles.text, styles.header]}>Guess the word!</Text>
-        <Text style={[globalStyles.text, styles.score]}>Score:{currentScore}</Text>
-        <View style={styles.guesses} >
-          {guesses.map((guess, index) =>
+        <Text style={[globalStyles.text, styles.score]}>Score:{gameInfo.score}</Text>
+        <View style={styles.guesses}>
+          {gameInfo.guesses.map((guess, index) =>
             <WordGuess key={index} word={guess.word} active={guess.active} guessedLettersStatus={guess.guessedLettersStatus} />
           )}
         </View>
@@ -37,7 +38,7 @@ const Game = () => {
 
 const styles = StyleSheet.create({
   viewSection: {
-    flex: 2,
+    flex: 2.5,
     alignItems: 'center'
   },
   inputSection: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary
   },
   guesses: {
-    marginTop: 20,
+    marginTop: 10,
   }
 });
 

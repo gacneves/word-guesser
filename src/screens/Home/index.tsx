@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View, StyleSheet, Animated, Easing } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { gameState } from '../../store';
 import { StackParamList } from '../../navigators';
 import Button from '../../components/button';
 import globalStyles from '../../styles';
@@ -13,7 +15,7 @@ type GameScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Game'
 const Home = () => {
   const navigation = useNavigation<GameScreenNavigationProp>();
 
-  const highScore = 10 // Initial mock value for high score
+  const highScore = useSelector((state: gameState) => state.highscore);
 
   const animationState = new Animated.Value(0);
 
