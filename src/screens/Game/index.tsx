@@ -10,16 +10,34 @@ import globalStyles from '../../styles';
 import theme from '../../theme';
 
 const Game = () => {
+  // Redux
   const gameInfo = useSelector((state: gameState) => state);
-
   const dispatch = useDispatch();
 
-  function computeWord() {
+  // Button title handler
+  const updateButtonTitle = (status: string): string => {
+    if (status === 'playing') return 'Guess';
+    else if (status === 'won') return 'Next';
+    else return 'Restart';
+  }
+
+  const [buttonTitle, setButtonTitle] = React.useState(updateButtonTitle(gameInfo.status));
+
+  React.useEffect(() => {
+    setButtonTitle(updateButtonTitle(gameInfo.status));
+  }, [gameInfo.status]);
+
+  // Button handlers
+  const handleGuess = (): void => {
     const currentGuess = gameInfo.guesses[gameInfo.currentGuessIndex].word;
     if (currentGuess.length === 5) {
-      const status = createLettersStatus(currentGuess, gameInfo.secretWord);
+      const status = createLettersStatus(currentGuess, gameInfo.secretWord[gameInfo.currentSecretWordIndex]);
       dispatch({ type: 'SUBMIT_GUESS', status })
     }
+  }
+
+  const handleNewGameStatus = (): void => {
+    dispatch({ type: 'UPDATE_GUESS' });
   }
 
   return (
@@ -35,12 +53,12 @@ const Game = () => {
       </View>
       <View style={styles.inputSection}>
         <Button
-          title='Guess'
-          width={200}
+          title={buttonTitle}
+          width={buttonTitle === 'Restart' ? 240 : 200}
           height={50}
           radius={10}
           titleSize={30}
-          onPress={computeWord}
+          onPress={buttonTitle === 'Guess' ? handleGuess : handleNewGameStatus}
         />
         <View style={styles.keyboard}>
           <Keyboard />
