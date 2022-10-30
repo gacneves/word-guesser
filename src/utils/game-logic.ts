@@ -9,7 +9,8 @@ export type Guess = {
 }
 
 export type GameInfo = {
-  secretWord: string,
+  secretWord: [string, string, string, string, string],
+  currentSecretWordIndex: number,
   guesses: [Guess, Guess, Guess, Guess, Guess, Guess],
   currentGuessIndex: number,
   score: number,
