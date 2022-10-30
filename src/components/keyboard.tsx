@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   letter: {
     fontSize: 18,
-    color: 'white',
+    color: theme.colors.text,
     // Fix the text centering due to the letter font
     marginTop: -2,
     marginLeft: 1
