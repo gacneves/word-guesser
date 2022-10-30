@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gameState } from '../../store';
+import { createLettersStatus } from '../../utils/game-logic';
 import Button from '../../components/button';
 import Keyboard from '../../components/keyboard';
 import WordGuess from '../../components/word-guess';
@@ -10,6 +11,16 @@ import theme from '../../theme';
 
 const Game = () => {
   const gameInfo = useSelector((state: gameState) => state);
+
+  const dispatch = useDispatch();
+
+  function computeWord() {
+    const currentGuess = gameInfo.guesses[gameInfo.currentGuessIndex].word;
+    if (currentGuess.length === 5) {
+      const status = createLettersStatus(currentGuess, gameInfo.secretWord);
+      dispatch({ type: 'SUBMIT_GUESS', status })
+    }
+  }
 
   return (
     <View style={globalStyles.container}>
@@ -29,7 +40,7 @@ const Game = () => {
           height={50}
           radius={10}
           titleSize={30}
-          onPress={() => console.log('Guess')}
+          onPress={computeWord}
         />
         <View style={styles.keyboard}>
           <Keyboard />
