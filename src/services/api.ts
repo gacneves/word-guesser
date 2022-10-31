@@ -2,7 +2,6 @@ import { REACT_APP_RAPID_API_KEY } from '@env'
 
 // Fetchs multiple random secret words from the API
 const fetchSecretWords = async () => {
-  console.log('fetchSecretWords');
   const options = {
     method: 'GET',
     headers: {

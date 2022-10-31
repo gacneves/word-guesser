@@ -1,5 +1,6 @@
 import { createStore } from "redux";
 import { GameInfo, GameStatus, Guess, isCorrectGuess, isPlaying } from "../utils/game-logic";
+import fetchSecretWords from "../services/api";
 
 const INITIAL_STATE: GameInfo = {
   // The secret word is an array of 5 words fetched from the API
@@ -54,8 +55,13 @@ function game(state = INITIAL_STATE, action: any) {
         { word: '', active: true },
         { word: '', active: true }
       ];
-      // Fetch more words from the API if the secret word is the last one and reset the index to 0
-      const newSecretWordIndex = state.currentSecretWordIndex + 1;
+      if (state.currentSecretWordIndex === 4) { // If we have reached the end of the secret words, fetch new ones
+        fetchSecretWords().then((secretWords) => {
+          const newSecretWord = secretWords.map((word: string) => word.toUpperCase());
+          store.dispatch({ type: 'SET_SECRET_WORDS', secretWords: newSecretWord });
+        });
+      }
+      const newSecretWordIndex = state.currentSecretWordIndex !== 4 ? state.currentSecretWordIndex + 1 : 0;
       return { ...state, currentSecretWordIndex: newSecretWordIndex, guesses: newGuesses, currentGuessIndex: 0, score: lostGame ? 0 : state.score, status: ('playing' as GameStatus) };
 
     case 'SET_SECRET_WORDS':
