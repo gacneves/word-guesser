@@ -41,12 +41,15 @@ const Home = () => {
     ).start();
   }, []);
 
-  const handleStart = () => {
+  React.useEffect(() => {
     fetchSecretWords().then((secretWords) => {
       const secretWordsUpperCase = secretWords.map((word: string) => word.toUpperCase());
       dispatch({ type: 'SET_SECRET_WORDS', secretWords: secretWordsUpperCase });
-      navigation.navigate('Game');
     });
+  }, []);
+
+  const handleStart = () => {
+    navigation.navigate('Game');
   }
 
   return (
