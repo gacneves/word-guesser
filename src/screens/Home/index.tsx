@@ -2,17 +2,20 @@ import React from 'react';
 import { Text, View, StyleSheet, Animated, Easing } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gameState } from '../../store';
 import { StackParamList } from '../../navigators';
 import Button from '../../components/button';
 import globalStyles from '../../styles';
 import theme from '../../theme';
+import fetchSecretWords from '../../services/api';
 
 // Getting the type of the game screen navigation prop
 type GameScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Game'>;
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation<GameScreenNavigationProp>();
 
   const highScore = useSelector((state: gameState) => state.highscore);
@@ -39,7 +42,11 @@ const Home = () => {
   }, []);
 
   const handleStart = () => {
-    navigation.navigate('Game');
+    fetchSecretWords().then((secretWords) => {
+      const secretWordsUpperCase = secretWords.map((word: string) => word.toUpperCase());
+      dispatch({ type: 'SET_SECRET_WORDS', secretWords: secretWordsUpperCase });
+      navigation.navigate('Game');
+    });
   }
 
   return (

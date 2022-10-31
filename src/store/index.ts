@@ -58,6 +58,9 @@ function game(state = INITIAL_STATE, action: any) {
       const newSecretWordIndex = state.currentSecretWordIndex + 1;
       return { ...state, currentSecretWordIndex: newSecretWordIndex, guesses: newGuesses, currentGuessIndex: 0, score: lostGame ? 0 : state.score, status: ('playing' as GameStatus) };
 
+    case 'SET_SECRET_WORDS':
+      return { ...state, secretWord: action.secretWords, currentSecretWordIndex: 0 };
+
     default:
       return state;
   }

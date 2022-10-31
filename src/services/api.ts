@@ -13,6 +13,7 @@ const fetchSecretWords = async () => {
 
   const response = await fetch('https://random-words5.p.rapidapi.com/getMultipleRandom?count=5&wordLength=5', options)
   const data = await response.json();
+  console.log('fetchSecretWords: ', data);
   return data;
 };
 
